@@ -13,6 +13,9 @@ from torch.nn.functional import pad
 
 from data import Wav2Mel
 
+# at beginning of the script
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 
 def chunks(lst: List, n: int) -> List[List]:
     for i in range(0, len(lst), n):

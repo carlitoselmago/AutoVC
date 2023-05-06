@@ -10,11 +10,12 @@ import torch.nn as nn
 import torchaudio
 from torch import Tensor
 from torch.nn.functional import pad
+import os
 
 from data import Wav2Mel
 
 # at beginning of the script
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+#device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def chunks(lst: List, n: int) -> List[List]:
@@ -45,8 +46,8 @@ def main(
     model = torch.jit.load(model_path).to(device)
     vocoder = torch.jit.load(vocoder_path).to(device)
     wav2mel = Wav2Mel()
-
-    src, src_sr = torchaudio.load(source)
+    #sourcefilename = os.path.join('C:/Users/gamer/podcast-AI/AutoVC',  "source.wav")
+    src, src_sr = torchaudio.load(open(("source.flac"), "r").read())
     tgt, tgt_sr = torchaudio.load(target)
     src_mel = wav2mel(src, src_sr).to(device)
     tgt_mel = wav2mel(tgt, tgt_sr).to(device)
